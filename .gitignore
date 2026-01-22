@@ -6,13 +6,54 @@ dist/
 wheels/
 *.egg-info
 
-# Database
-database/*.db
-database/*.db-shm
-database/*.db-wal
+# Database files
+*.db
+*.db-shm
+*.db-wal
+# Database folder is needed , it has the model.py
 
-# Secrets
+# Logs and temporary files
+data/logs/
+data/temp/
+*.log
+
+# Secrets and environment
 .env
+.env.local
+.env.*.local
 
 # Virtual environments
 .venv
+venv/
+ENV/
+env/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup files
+*_bk.py
+*.bak
+*.backup
+
+# Package manager files
+uv.lock
+*.lock
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Gradio temporary files
+gradio_cached_examples/
+flagged/
+
+# Test files
+.pytest_cache/
+.coverage
+htmlcov/
