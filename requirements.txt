@@ -262,7 +262,7 @@ sortedcontainers==2.4.0
     # via pyiceberg
 sse-starlette==3.2.0
     # via mcp
-starlette==0.50.0
+starlette==0.52.1
     # via
     #   fastapi
     #   gradio
