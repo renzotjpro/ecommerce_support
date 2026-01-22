@@ -1,0 +1,73 @@
+# Dependabot configuration
+# Automatically creates PRs to update dependencies
+# Helps keep your project secure and up-to-date
+
+version: 2
+
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "renzotjpro"
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    
+    # Group dependency updates
+    groups:
+      # Group all patch updates together
+      patch-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+      
+      # Group OpenAI related updates
+      openai-dependencies:
+        patterns:
+          - "openai*"
+          - "tiktoken*"
+      
+      # Group database dependencies
+      database-dependencies:
+        patterns:
+          - "supabase*"
+          - "psycopg*"
+      
+      # Group testing dependencies
+      testing-dependencies:
+        patterns:
+          - "pytest*"
+          - "coverage*"
+    
+    # Ignore specific dependencies
+    ignore:
+      # Ignore major version updates for stable dependencies
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major"]
+    
+    # Allow specific updates
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"

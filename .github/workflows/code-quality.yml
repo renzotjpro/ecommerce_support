@@ -1,0 +1,180 @@
+name: Code Quality
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  # ============================================
+  # AUTO-FORMAT CODE (Only on PRs)
+  # ============================================
+  format:
+    name: Auto-format Code
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install formatters
+        run: |
+          pip install black isort
+      
+      - name: 🎨 Format with Black
+        run: |
+          black .
+      
+      - name: 📚 Sort imports with isort
+        run: |
+          isort .
+      
+      - name: 💾 Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "style: auto-format code with Black and isort"
+          git push
+        continue-on-error: true
+
+  # ============================================
+  # LINT CODE
+  # ============================================
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install linters
+        run: |
+          pip install flake8 pylint mypy
+      
+      - name: 🔍 Flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      
+      - name: 🔍 Pylint
+        run: |
+          pylint **/*.py --exit-zero --max-line-length=127
+        continue-on-error: true
+      
+      - name: 🔍 MyPy (Type Checking)
+        run: |
+          mypy . --ignore-missing-imports --no-strict-optional
+        continue-on-error: true
+
+  # ============================================
+  # SECURITY CHECKS
+  # ============================================
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install security tools
+        run: |
+          pip install bandit safety
+      
+      - name: 🔒 Bandit Security Scan
+        run: |
+          bandit -r . -ll -x ./tests,./venv,./.venv
+        continue-on-error: true
+      
+      - name: 🔒 Safety Vulnerability Check
+        run: |
+          pip install -r requirements.txt
+          safety check --json
+        continue-on-error: true
+      
+      - name: 🔒 Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+  # ============================================
+  # CODE COMPLEXITY
+  # ============================================
+  complexity:
+    name: Code Complexity
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install tools
+        run: |
+          pip install radon
+      
+      - name: 📊 Cyclomatic Complexity
+        run: |
+          radon cc . -a -nb
+      
+      - name: 📊 Maintainability Index
+        run: |
+          radon mi . -nb
+
+  # ============================================
+  # DOCUMENTATION CHECK
+  # ============================================
+  docs:
+    name: Documentation Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install tools
+        run: |
+          pip install pydocstyle interrogate
+      
+      - name: 📝 Check docstrings
+        run: |
+          pydocstyle . --convention=google
+        continue-on-error: true
+      
+      - name: 📊 Documentation coverage
+        run: |
+          interrogate -v .
+        continue-on-error: true
