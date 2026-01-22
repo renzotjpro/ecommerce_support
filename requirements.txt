@@ -154,7 +154,7 @@ packaging==25.0
     #   gradio-client
     #   huggingface-hub
     #   pytest
-pandas==2.3.3
+pandas==3.0.0
     # via gradio
 pillow==12.1.0
     # via gradio
