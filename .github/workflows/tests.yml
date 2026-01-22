@@ -29,7 +29,7 @@ jobs:
     steps:
       # Step 1: Checkout code
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       # Step 2: Set up Python
       - name: 🐍 Set up Python ${{ matrix.python-version }}
@@ -97,7 +97,7 @@ jobs:
     
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: 🐍 Set up Python
         uses: actions/setup-python@v4
@@ -141,7 +141,7 @@ jobs:
     
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: 🐍 Set up Python
         uses: actions/setup-python@v4
@@ -164,7 +164,7 @@ jobs:
     
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: 🐍 Set up Python
         uses: actions/setup-python@v4
@@ -202,7 +202,7 @@ jobs:
     
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           lfs: true
@@ -232,7 +232,7 @@ jobs:
     
     steps:
       - name: 📥 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       
       - name: 📝 Create Release
         uses: actions/create-release@v1
