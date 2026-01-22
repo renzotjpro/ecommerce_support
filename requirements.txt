@@ -324,7 +324,7 @@ uvicorn==0.40.0
     # via
     #   gradio
     #   mcp
-websockets==15.0.1
+websockets==16.0
     # via realtime
 yarl==1.22.0
     # via
