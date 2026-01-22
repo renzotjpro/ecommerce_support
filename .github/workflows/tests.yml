@@ -83,7 +83,7 @@ jobs:
       # Step 8: Upload coverage badge as artifact
       - name: 📤 Upload coverage badge
         if: matrix.python-version == '3.11'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-badge
           path: coverage.svg
