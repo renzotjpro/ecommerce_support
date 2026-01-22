@@ -147,7 +147,7 @@ openai-agents==0.6.7
     # via ecommerce-support
 orjson==3.11.5
     # via gradio
-packaging==25.0
+packaging==26.0
     # via
     #   deprecation
     #   gradio
