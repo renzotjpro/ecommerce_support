@@ -143,7 +143,7 @@ numpy==2.4.1
     #   pandas
 openai==2.15.0
     # via openai-agents
-openai-agents==0.6.7
+openai-agents==0.6.9
     # via ecommerce-support
 orjson==3.11.5
     # via gradio
