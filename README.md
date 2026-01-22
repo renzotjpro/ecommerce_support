@@ -1,4 +1,16 @@
-# 🛍️ E-Commerce Support Agent
+---
+title: E-Commerce Support Agent
+emoji: 🛍️
+colorFrom: blue
+colorTo: purple
+sdk: gradio
+sdk_version: 6.3.0
+app_file: app.py
+pinned: false
+license: mit
+---
+
+
 
 An intelligent multi-agent customer support system powered by OpenAI's Swarm framework. This AI agent handles customer inquiries for e-commerce operations including order tracking, inventory management, and refund processing.
 
