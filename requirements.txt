@@ -45,7 +45,7 @@ colorama==0.4.6
     #   griffe
     #   pytest
     #   tqdm
-coverage==7.13.1
+coverage==7.13.2
     # via pytest-cov
 cryptography==46.0.3
     # via pyjwt
