@@ -45,7 +45,7 @@ colorama==0.4.6
     #   griffe
     #   pytest
     #   tqdm
-coverage==7.13.1
+coverage==7.13.5
     # via pytest-cov
 cryptography==46.0.3
     # via pyjwt
@@ -201,14 +201,14 @@ pyparsing==3.3.2
     # via pyiceberg
 pyroaring==1.0.3
     # via pyiceberg
-pytest==9.0.2
+pytest==9.0.3
     # via
     #   ecommerce-support
     #   pytest-asyncio
     #   pytest-cov
 pytest-asyncio==1.3.0
     # via ecommerce-support
-pytest-cov==7.0.0
+pytest-cov==7.1.0
     # via ecommerce-support
 python-dateutil==2.9.0.post0
     # via
